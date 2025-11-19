@@ -19,15 +19,17 @@ import com.paul.studydemo.pojo.ResponseMessage;
 import com.paul.studydemo.pojo.dto.PassengerDto;
 import com.paul.studydemo.service.IPassengerService;
 
-
-
 @RestController
 @RequestMapping("/passenger")
 public class PassengerController {
 
-    @Autowired
+
     IPassengerService passengerService;
 
+    @Autowired
+    public void setPassengerService(IPassengerService passengerService) {
+        this.passengerService = passengerService;
+    }
 
     @PostMapping
     public ResponseMessage<Passenger> insertPassenger(@Validated @RequestBody PassengerDto passengerDto) {
@@ -35,7 +37,6 @@ public class PassengerController {
 
         return ResponseMessage.success(newPassenger);
     }
-    
 
     @GetMapping("/{passengerId}")
     public ResponseMessage<Passenger> getPassenger(@PathVariable Integer passengerId) {
